@@ -1,0 +1,10 @@
+---
+- name: My Test Playbook   # Playbook name (just description)
+  hosts: all               # Run on all servers in inventory
+  become: true             # Use sudo / root permission
+
+  tasks:
+  - name: creating a file  # Task name (what this task does)
+    file:                  # File module (used to manage files)
+      path: /home/ansadmin/dir1   # File location (where file will be created)
+      state: directory                   # touch = create empty file if not exists

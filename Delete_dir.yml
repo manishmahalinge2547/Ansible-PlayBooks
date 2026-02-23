@@ -1,0 +1,10 @@
+---
+- name: Delete Directory Playbook   # Playbook name
+  hosts: all                        # Run on all servers
+  become: true                      # Use sudo permission
+
+  tasks:
+  - name: Removing directory        # Task name
+    file:                           # File module
+      path: /home/ansadmin/dir1    # Directory path to delete
+      state: absent                 # absent = delete file or directoryi

@@ -1,0 +1,12 @@
+---
+- name: My test Playbook        # Playbook name (description)
+  hosts: all                    # Run on all servers
+  become: true                  # Use sudo / root permission
+
+  tasks:
+  - name: copy a file           # Task name
+    copy:                       # Copy module
+      src: /home/ansadmin/index.html   # Source file (Ansible control node se)
+      dest: /home/ansadmin             # Destination path (remote server par)
+      mode: '0600'                     # File permission (owner read/write only)
+      owner: Manish                    # File owner on remote server

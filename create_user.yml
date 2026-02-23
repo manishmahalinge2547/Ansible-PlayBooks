@@ -1,0 +1,23 @@
+# -------------------------------
+# 1️⃣ Playbook = Create User
+# -------------------------------
+---
+- name: Create user on servers
+  # Playbook name (just description)
+
+  hosts: all
+  # Run on all servers in inventory
+
+  become: true
+  # Take sudo (root) permission
+
+  # -------------------------------
+  # 2️⃣ Tasks = What to perform
+  # -------------------------------
+  tasks:
+
+    # Create a new user
+    - name: Creating user rohit
+      user:
+        name: rohit
+        # User name to be created on server
