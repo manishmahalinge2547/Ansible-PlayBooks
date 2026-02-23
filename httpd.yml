@@ -1,0 +1,16 @@
+---
+- name: My Test Playbook          # Playbook name (description)
+  hosts: all                      # Run on all servers
+  become: true                    # Use sudo / root permission
+
+  tasks:
+
+  - name: Install Httpd package   # Task 1: Install Apache web server
+    yum:                          # Yum module (used in RHEL/CentOS)
+      name: httpd                 # Package name (Apache)
+      state: installed            # Install the package
+
+  - name: Start Httpd service     # Task 2: Start Apache service
+    service:                      # Service module (manage services)
+      name: httpd                 # Service name
+      state: started              # Start the service

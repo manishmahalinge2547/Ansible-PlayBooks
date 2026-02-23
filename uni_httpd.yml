@@ -1,0 +1,16 @@
+---
+- name: MY test playbook              # Playbook ka naam (sirf description)
+  hosts: all                          # Sabhi servers par run hoga
+  become: true                        # sudo / root permission lega
+
+  tasks:
+
+  - name: Stop Httpd service          # Task 1: Apache service band karo
+    service:                          # Service module (service manage karta hai)
+      name: httpd                    # Service ka naam (Apache)
+      state: stopped                 # stopped = service band
+
+  - name: delete httpd package        # Task 2: Apache package delete karo
+    yum:                              # Yum module (package manage karta hai)
+      name: httpd                    # Package ka naam
+      state: absent                  # absent = uninstall / delete
