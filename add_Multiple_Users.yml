@@ -1,0 +1,16 @@
+---
+- name: My test Playbook                 # Playbook name
+  hosts: all                             # Run on all servers
+  become: true                           # Use sudo / root permission
+
+  tasks:
+
+  - name: Create Multiple Users          # Task to create users
+    user:                                # User module
+      name: "{{ item }}"                 # Username will come from loop
+      state: present                     # Ensure user exists
+    loop:                                # Loop to create multiple users
+      - raj
+      - sai
+      - ishu
+      - neha

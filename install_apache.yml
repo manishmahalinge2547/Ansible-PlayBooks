@@ -1,0 +1,36 @@
+---
+- name: MY test playbook                 # Playbook name
+  hosts: all                             # Run on all servers
+  become: true                           # Use sudo / root permission
+
+  tasks:
+
+  # -------------------------------
+  # For RedHat Family (RHEL/CentOS/Amazon Linux)
+  # -------------------------------
+  - name: Install httpd package          # Install Apache in RedHat systems
+    yum:                                 # Yum module
+      name: httpd                        # Package name
+      state: installed                   # Install package
+    when: ansible_os_family == "RedHat"  # Run only if OS is RedHat family
+
+  - name: Start httpd service            # Start Apache service
+    service:                             # Service module
+      name: httpd                        # Service name
+      state: started                     # Start service
+    when: ansible_os_family == "RedHat"  # Condition for RedHat
+
+  # -------------------------------
+  # For Debian Family (Ubuntu)
+  # -------------------------------
+  - name: Install apache2 package        # Install Apache in Debian systems
+    apt:                                 # Apt module
+      name: apache2                      # Package name
+      state: installed                   # Install package
+    when: ansible_os_family == "Debian"  # Run only if OS is Debian family
+
+  - name: Start apache2 service          # Start Apache service
+    service:                             # Service module
+      name: apache2                      # Service name
+      state: started                     # Start service (NOT installed)
+    when: ansible_os_family == "Debian"  # Condition for Debian

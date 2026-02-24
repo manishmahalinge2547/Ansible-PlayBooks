@@ -1,0 +1,27 @@
+---
+# -------------------------------
+# Playbook = Install Apache using Handler
+# -------------------------------
+- name: My test Playbook          # Playbook name
+  hosts: all                      # Run on all servers
+  become: true                    # Use sudo / root permission
+
+  tasks:
+
+  # -------------------------------
+  # Task 1️⃣ = Install Httpd
+  # -------------------------------
+  - name: Install Httpd package   # Install Apache package
+    yum:                          # Yum module (RHEL/CentOS)
+      name: httpd                 # Package name
+      state: installed            # Install package
+    notify: start apache          # If changed → call handler
+
+  # -------------------------------
+  # Handlers = Run only when notified
+  # -------------------------------
+  handlers:
+    - name: start apache          # Handler name (must match notify)
+      service:                    # Service module
+        name: httpd               # Service name
+        state: started            # Start Apache service

@@ -1,0 +1,13 @@
+---
+- name: My test Playbook              # Playbook name
+  hosts: all                          # Run on all servers
+  become: true                        # Use sudo permission
+
+  vars:
+    user: sunny                       # Variable defined (username)
+
+  tasks:
+  - name: Creating user {{ user }}    # Task name using variable
+    user:
+      name: "{{ user }}"              # Username from variable
+      state: present                  # Ensure user exists

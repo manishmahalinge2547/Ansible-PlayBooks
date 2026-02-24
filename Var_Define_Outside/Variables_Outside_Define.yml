@@ -1,0 +1,12 @@
+---
+- name: My test Playbook          # Playbook name
+  hosts: all                      # Run on all servers
+  become: true                    # Use sudo permission
+
+  vars_files:
+    - test.yml                    # Load variables file
+
+  tasks:
+    - name: Creating user {{ user1 }}   # Task name
+      user:
+        name: "{{ user1 }}"             # Username from test.yml

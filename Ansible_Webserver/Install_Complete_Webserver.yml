@@ -1,0 +1,45 @@
+---
+- name: MY Webserver                      # Playbook name
+  hosts: all                              # Run on all servers
+  become: true                            # Use sudo permission
+
+  tasks:
+
+  # -------------------------------
+  # For RedHat Family
+  # -------------------------------
+  - name: Install httpd Package           # Install Apache (RedHat)
+    yum:
+      name: httpd                         # Package name
+      state: installed                    # Install package
+    when: ansible_os_family == "RedHat"   # Run only on RedHat OS
+
+  - name: Start httpd service             # Start Apache service
+    service:
+      name: httpd                         # Service name
+      state: started                      # Start service
+    when: ansible_os_family == "RedHat"   # Condition for RedHat
+
+  # -------------------------------
+  # For Debian Family
+  # -------------------------------
+  - name: Install Apache2 package         # Install Apache (Debian/Ubuntu)
+    apt:
+      name: apache2                       # Package name
+      state: installed                    # Install package
+    when: ansible_os_family == "Debian"   # Run only on Debian OS
+
+  - name: Start apache2 service           # Start Apache service
+    service:
+      name: apache2                       # Service name
+      state: started                      # Start service
+    when: ansible_os_family == "Debian"   # Condition for Debian
+
+  # -------------------------------
+  # Copy Website File
+  # -------------------------------
+  - name: Copy index.html file            # Copy web page file
+    copy:                                 # Copy module (small c, not Copy)
+      src: /home/ansadmin/index.html      # Source file (control node)
+      dest: /var/www/html/index.html      # Destination path (web root)
+      mode: '0666'                        # File permission

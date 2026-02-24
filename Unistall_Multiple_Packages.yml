@@ -1,0 +1,11 @@
+---
+- name: My test Playbook
+  hosts: all
+  become: true
+
+
+  tasks:
+  - name: Delete Multiple packages
+    yum:
+      name: ['git','docker','tree','httpd']
+      state: absent

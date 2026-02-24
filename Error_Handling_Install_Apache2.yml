@@ -1,0 +1,40 @@
+---
+- name: My Test Playbook                  # Playbook name
+  hosts: all                              # Run on all servers
+  become: true                            # Use sudo permission
+
+  tasks:
+
+   - name: Install httpd package          # Install Apache (RedHat)
+     yum:
+       name: httpd                        # Package name
+       state: installed                   # Install package
+     when: ansible_os_family == "RedHat"  # Run only on RedHat OS
+     ignore_errors: yes                   # Ignore error if fails
+
+   - name: start httpd service            # Start Apache service (RedHat)
+     service:
+       name: httpd                        # Service name
+       state: started                     # Start service
+     when: ansible_os_family == "RedHat"  # Condition for RedHat
+     ignore_errors: yes                   # Ignore error
+
+   - name: Install apache2 pkg            # Install Apache (Debian)
+     apt:
+       name: apache2                      # Package name
+       state: present                     # Ensure installed
+     when: ansible_os_family == "Debian"  # Run only on Debian
+     ignore_errors: yes                   # Ignore error
+
+   - name: start apache2 service          # Start Apache service (Debian)
+     service:
+       name: apache2                      # Service name
+       state: started                     # Start service
+     when: ansible_os_family == "Debian"  # Condition for Debian
+     ignore_errors: yes                   # Ignore error
+
+   - name: copy index file                # Copy website file
+     copy:
+       src: /home/ansadmin/index.html     # Source file (control node)
+       dest: /var/www/html/index.html     # Destination path
+       mode: '0666'                       # File permission

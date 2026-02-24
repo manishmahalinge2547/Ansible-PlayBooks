@@ -1,0 +1,11 @@
+---
+- name: My test Playbook                  # Playbook name
+  hosts: all                              # Run on all servers
+  become: true                            # Use sudo / root permission
+
+  tasks:
+
+  - name: Install Multiple Packages       # Install multiple software packages
+    yum:                                  # Yum module (RHEL/CentOS/Amazon Linux)
+      name: ['git','docker','tree','httpd']  # List of packages to install
+      state: installed                    # Install all packages
